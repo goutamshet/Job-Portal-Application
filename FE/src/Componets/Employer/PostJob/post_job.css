@@ -1,0 +1,97 @@
+.post-job-form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+
+.title-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    margin: 0px;
+    color: #0077b6;
+    padding: 0 10px;
+}
+
+.buttons-container{
+    display: flex;
+    padding: 4px;
+    gap: 10px;
+}
+
+.cancel-button{
+    width: 80px;
+    text-align: center;
+    padding: 6px;
+    background-color: white;
+    color: #0077b6;
+    border: 2px solid #0077b6;
+    border-radius: 4px;
+    font-family: poppins;
+    font-weight: 600;
+    font-size: 16px;
+}
+.post-button{
+    width: 80px;
+    padding: 8px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: poppins;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+
+.job-details-title{
+    font-weight: 600;
+    text-align: start;
+    padding: 10px;
+    font-size: 18px;
+}
+
+
+.label desc {
+    
+}
+
+
+.row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin:  0px 0 20px 0px;
+}
+
+.label{
+    width: 150px;
+    text-align: start;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.label,
+.desc {
+    height: 100%;
+    display: flex;
+    align-items: start;
+}
+
+.job-description{
+    height: 100px;
+}
+
+span{
+    padding: 10px;
+}
+
+.input{
+    padding: 6px;
+    flex: 1;
+    max-width: 400px;
+}

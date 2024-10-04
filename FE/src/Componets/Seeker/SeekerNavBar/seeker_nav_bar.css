@@ -1,0 +1,66 @@
+
+
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    color: #0077b6;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.app-name{
+    padding: 10px 30px;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+
+
+.nav-items-container{
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+}
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.job-posts,
+.candidates{
+    padding: 6px 12px;
+}
+
+.account-type{
+    padding: 6px 12px;
+}
+
+.button-post-job{
+    padding: 6px 12px;
+    margin: 0px 20px;
+    font-family: poppins;
+    font-size: 16px;
+    border: 1px solid #0077b6;
+    border-radius: 4px;
+    color: white;
+    font-weight: 700;
+    background-color: #0077b6;
+}
+
+.profile-container{
+    display: flex;
+    align-items: center;
+}
+
+.profile{
+    width: 30px;
+}

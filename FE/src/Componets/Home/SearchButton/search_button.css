@@ -1,0 +1,19 @@
+.button-container{
+    display: flex;
+    justify-content: center;
+    height: auto;
+    padding: 10px;
+}
+
+.find-button{
+   display: inline-block;
+   padding: 12px 20px;
+   font-weight: 600;
+   border-radius: 4px;
+   font-size: 16px;
+   background-color: #0077b6;
+   color: white;
+   border: none;
+   font-family: poppins;
+   letter-spacing: 1px;
+}

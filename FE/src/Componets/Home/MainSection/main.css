@@ -1,0 +1,29 @@
+.home-main-container{
+    display: flex;
+    height: 70vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-title-container{
+    flex: 1;
+    padding: 20px;
+}
+
+.main-title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.main-subtitle{
+    font-size: 1.1rem;
+}
+
+.main-image-container{
+    flex : 1;
+}
+
+.main-image{
+   width: 100%;
+}

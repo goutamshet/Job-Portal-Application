@@ -1,0 +1,38 @@
+
+
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    /* background-color: #5a189a; */
+    color: #0077b6;
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.9);
+    z-index: 999;
+}
+
+.app-name{
+    padding: 10px 30px;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.signup-login-container{
+    display: flex;
+    font-weight: 700;
+    margin-right: 20px;
+}
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.login{
+    padding: 10px;
+}
+
+.sign-up{
+    padding: 10px;
+}
