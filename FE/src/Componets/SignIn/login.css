@@ -44,6 +44,13 @@
     border: 1px solid grey;
 }
 
+.error{
+    text-align: start;
+    color: red;
+    font-size: 12px;
+    padding: 6px;
+}
+
 
 .forgot-password{
     padding: 8px ;
@@ -60,6 +67,10 @@
     border-radius: 5px;
     margin: 20px 0 0 0 ;
     font-family: poppins;
+}
+
+.signup-button:active{
+    background-color: #0096c7;
 }
 
 .account-links

@@ -3,11 +3,16 @@ import SubMenu from "./EmployerNavBar/SubMenu/sub_menu"
 import EmployerMainSection from "./MainSection/main"
 
 const Employer = () => {
+    const token = localStorage.getItem('token')
+
     return (
+        <>
+        {token && 
         <div className="employer-container">
             <NavBar/>
             <EmployerMainSection/>
-        </div>
+        </div>}
+        </>
     )
 }
 

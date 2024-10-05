@@ -6,14 +6,14 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const SignUp = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       email: '',
       username: '',
       password: '',
-      role: '', // Add role field for radio buttons
+      roleName: '', // Add role field for radio buttons
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -25,22 +25,26 @@ const SignUp = () => {
       password: Yup.string()
         .min(6, 'Password must be at least 6 characters')
         .required('Password is required'),
-      role: Yup.string().required('Role is required'), // Validation for role
+      roleName: Yup.string().required('Role is required'), // Validation for role
     }),
     onSubmit: async (values) => {
       try {
         // You can use axios here to send the form values to the backend
         const response = await axios.post('http://localhost:5001/api/auth/register', values);
         localStorage.setItem('token',response.data.token);
-        console.log('Form submitted successfully:', response.data);
-        if(response.data.roleName === 'Job Seeker'){
-            navigate('/jobseeker')
-        }else(
-            navigate('/jobprovider')
-        )
+        localStorage.setItem('role',response.data.role);
+        // if (response.data.role === 'Job Seeker') {
+        //   navigate('/jobseeker');
+        // } else if (response.data.role === 'Job Provider') {
+        //   navigate('/jobprovider');
+        //   console.log(`Navigatinh to {response.data.roleName}`)
+        // }
+
+        navigate("/")
       } catch (error) {
         console.error('Error submitting form:', error);
       }
+      console.log("Submitted")
     },
   });
 
@@ -93,10 +97,10 @@ const SignUp = () => {
           <input
             type="radio"
             value="Job Provider"
-            name="role" // Use the formik field name here
+            name="roleName" // Use the formik field name here
             id="employer"
             className="radio-selector"
-            checked={formik.values.role === 'Job Provider'}
+            checked={formik.values.roleName === 'Job Provider'}
             onChange={formik.handleChange}
           />
           <label htmlFor="employer" className="radio-label">Job Provider</label>
@@ -104,20 +108,21 @@ const SignUp = () => {
           <input
             type="radio"
             value="Job Seeker"
-            name="role" // Use the formik field name here
+            name="roleName" // Use the formik field name here
             id="seeker"
             className="radio-selector"
-            checked={formik.values.role === 'Job Seeker'}
+            checked={formik.values.roleName === 'Job Seeker'}
             onChange={formik.handleChange}
           />
           <label htmlFor="seeker" className="radio-label">Job Seeker</label>
-          {formik.touched.role && formik.errors.role ? (
-            <div className='error'>{formik.errors.role}</div>
+          {formik.touched.role && formik.errors.roleName ? (
+            <div className='error'>{formik.errors.roleName}</div>
           ) : null}
         </div>
-        <Link className="login-link" to="/jobprovider">
-            <button type="submit" className="signup-button">Sign Up</button>
-        </Link>
+        {/* <Link className="login-link" to="/jobprovider">
+            
+        </Link> */}
+        <button type="submit" className="signup-button">Sign Up</button>
         <div className="account-links">
           <span className="text">Already have an account? &nbsp;</span>
           <Link className="login-link" to="/signin">Log In</Link>

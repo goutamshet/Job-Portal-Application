@@ -81,6 +81,10 @@
     font-family: poppins;
 }
 
+.signup-button:active{
+    background-color: #0096c7;
+}
+
 .account-links
 {
     width: 100%;
