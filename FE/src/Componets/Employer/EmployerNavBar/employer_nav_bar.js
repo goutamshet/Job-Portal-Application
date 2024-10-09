@@ -18,12 +18,6 @@ const  NavBar = () => {
                 LocalJobs
             </div>
             <div className="nav-items-container">
-                {/* <Link to="/post-job" className="link">
-                    <div className='job-posts'>Job Posts</div>
-                </Link>
-                <Link to="/post-job" className="link">
-                    <div className='candidates'>Candidates</div>
-                </Link> */}
                 <Link to="/post-job" className="link">
                     <div className="button-post-job">
                         Post Job

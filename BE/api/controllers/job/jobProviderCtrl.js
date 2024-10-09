@@ -11,10 +11,9 @@ const createProfile = async (req, res) => {
       data: {
         userId,
         company_name,
-        company_description,
+        job_description,
         email,
         phone,
-        website,
         location,
       },
     });

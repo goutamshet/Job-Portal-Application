@@ -1,11 +1,13 @@
 import React from 'react';
-import './signup.css';
+import './register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
-const SignUp = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -31,66 +33,67 @@ const SignUp = () => {
       try {
         // You can use axios here to send the form values to the backend
         const response = await axios.post('http://localhost:5001/api/auth/register', values);
-        localStorage.setItem('token',response.data.token);
-        localStorage.setItem('role',response.data.role);
-        // if (response.data.role === 'Job Seeker') {
-        //   navigate('/jobseeker');
-        // } else if (response.data.role === 'Job Provider') {
-        //   navigate('/jobprovider');
-        //   console.log(`Navigatinh to {response.data.roleName}`)
-        // }
+        if (response.status === 200) {
+          // Show success toast if registration is successful
+          toast.success('Registration successful!', {
+          });
+          // Save token and role to local storage
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('role', response.data.role);
 
-        navigate("/")
+          // Navigate to home page or login page after a short delay
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
       } catch (error) {
-        console.error('Error submitting form:', error);
+       if (error.response || error.response.status === 400) {
+        // Show error toast with specific message from the backend
+        toast.error(error.response.data);
+      } else {
+        // General error toast if no specific error message is provided
+        toast.error('Registration failed. Please try again later');
       }
-      console.log("Submitted")
+    }
     },
   });
 
   return (
-    <div className="signup-container">
+    <div className="register-container">
       <form className="card" onSubmit={formik.handleSubmit}>
-        <h1 className="signup-title">Sign Up</h1>
+        <h1 className="register-title">Register    </h1>
         <div className="input-container">
           <input
             type="text"
             name="username"
             placeholder="Username"
-            className="signup-input"
+            className="register-input"
             value={formik.values.username}
             onChange={formik.handleChange}            
-            required
           />
-          {formik.touched.username && formik.errors.username ? (
-            <div className='error'>{formik.errors.username}</div>
-          ) : null}
+          <div className='error'>{formik.errors.username}</div>
 
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="signup-input"
+            className="register-input"
             value={formik.values.email}
             onChange={formik.handleChange}
-            required
           />
-          {formik.touched.email && formik.errors.email ? (
-            <div className='error'>{formik.errors.email}</div>
-          ) : null}
+          
+          <div className='error'>{formik.errors.email}</div>
+          
 
           <input
             type="password"
             name="password"
             placeholder="Password"
-            className="signup-input"
+            className="register-input"
             value={formik.values.password}
             onChange={formik.handleChange}
-            required
           />
-          {formik.touched.password && formik.errors.password ? (
             <div className='error'>{formik.errors.password}</div>
-          ) : null}
         </div>
 
         <div className="radio-selector-container">
@@ -122,14 +125,15 @@ const SignUp = () => {
         {/* <Link className="login-link" to="/jobprovider">
             
         </Link> */}
-        <button type="submit" className="signup-button">Sign Up</button>
+        <button type="submit" className="register-button">Register</button>
         <div className="account-links">
           <span className="text">Already have an account? &nbsp;</span>
-          <Link className="login-link" to="/signin">Log In</Link>
+          <Link className="login-link" to="/login">Log In</Link>
         </div>
       </form>
+      <ToastContainer/>
     </div>
   );
 }
 
-export default SignUp;
+export default Register;

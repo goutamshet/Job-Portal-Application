@@ -5,9 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   const formik = useFormik({
     initialValues: {
@@ -27,16 +32,26 @@ const Login = () => {
       try {
         // You can use axios here to send the form values to the backend
         const response = await axios.post('http://localhost:5001/api/auth/login', values);
-        localStorage.setItem('token',response.data.token);
-        console.log("logged in")
-        const role = localStorage.getItem('role')
-        if(role === "Job Seeker"){
-            navigate('/jobseeker')
-        }else if (role === "Job Provider"){
-            navigate('/jobprovider')
-        }
+
+        if(response.status === 200){
+          localStorage.setItem('token',response.data.token);
+          toast.success("logged in")
+          const role = localStorage.getItem('role')
+          if(role === "Job Seeker"){
+              navigate('/jobseeker')
+          }else if (role === "Job Provider"){
+              navigate('/jobprovider')
+          }
+      }
       } catch (error) {
-        console.error('Error submitting form:', error);
+        if (error.response) {
+          const errorMessage = error.response.data.error; // Get error message from backend
+          toast.error(errorMessage)
+        } else {
+          setErrorMessage('Network error. Please check your connection.');
+          toast.error(errorMessage)
+        }
+
       }
     },
   });
@@ -52,30 +67,25 @@ const Login = () => {
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
-                        required
                     />
-                    {formik.touched.email && formik.errors.email ? (
                     <div className='error'>{formik.errors.email}</div>
-                    ) : null}
                     <input type="password" 
                         placeholder="Password" 
                         className="login-input" 
                         name="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
-                        required
                     />
-                    {formik.touched.password && formik.errors.password ? (
                     <div className='error'>{formik.errors.password}</div>
-                    ) : null}
                 </div>
                 <div className="forgot-password">Forgot password?</div>
                 <button className="login-button" type='submit'>Log In</button>
                 <div className="account-links">
                     <span className="text">Don't have an account? &nbsp;</span> 
-                    <Link className="signup-link" to="/signup">Sign Up</Link>
+                    <Link className="register-link" to="/register">Register</Link>
                 </div>
             </form>
+            <ToastContainer/>
         </div>
     )
 }

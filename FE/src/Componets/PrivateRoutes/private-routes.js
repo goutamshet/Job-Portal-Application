@@ -1,9 +1,3 @@
-
-
 const PrivateRoutes = ({}) => {
-    return (
-        <div>
-
-        </div>
-    )
-}
+  return <div></div>;
+};

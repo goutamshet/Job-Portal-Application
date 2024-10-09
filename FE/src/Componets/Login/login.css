@@ -16,7 +16,7 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     z-index: 99;
     border-radius: 12px;
-    min-width: 150px;
+    min-width: 200px;
 }
 
 .login-title{
@@ -33,18 +33,18 @@
 }
 
 .login-input{
-    width: auto;
     padding: 12px;
-    margin: 14px 0;
     width: 300px;
     font-size: 16px;
     font-family: poppins;
     border-radius: 6px;
     outline: none;
     border: 1px solid grey;
+    box-sizing: border-box;
 }
 
 .error{
+    height: 14px;
     text-align: start;
     color: red;
     font-size: 12px;
@@ -53,24 +53,28 @@
 
 
 .forgot-password{
-    padding: 8px ;
+    padding:4px 8px ;
     font-size: 14px;
 }
 
 .login-button{
     background-color: #0077b6;
     padding: 10px;
+    margin-top: 10px;
     width: 100%;
     color: white;
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    margin: 20px 0 0 0 ;
     font-family: poppins;
 }
 
-.signup-button:active{
-    background-color: #0096c7;
+.login-button:hover{
+    background-color: #2f9cd7;
+}
+
+.login-button:active{
+    background-color: #0168a0;
 }
 
 .account-links
@@ -87,7 +91,7 @@
     padding: 10px 0;
 }
 
-.signup-link{
+.register-link{
     text-decoration: underline;
     color: inherit;
 }

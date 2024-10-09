@@ -1,4 +1,4 @@
-.signup-container{
+.register-container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -17,10 +17,10 @@
     z-index: 99;
     border-radius: 12px;
     min-width: 150px;
-    gap: 10px;
+    gap: 6px;
 }
 
-.signup-title{
+.register-title{
     width: 100%;
     text-align: start;
     margin: 0;
@@ -33,23 +33,23 @@
    flex-direction: column;
 }
 
-.error{
-    text-align: start;
-    color: red;
-    font-size: 12px;
-    padding: 6px;
-}
-
-.signup-input{
-    width: auto;
+.register-input{
     padding: 12px;
-    margin: 14px 0 0 0;
+    margin-top: 8px;
     width: 300px;
     font-size: 16px;
     font-family: poppins;
     border-radius: 6px;
     outline: none;
     border: 1px solid grey;
+}
+
+.error{
+    height: 14px;
+    text-align: start;
+    color: red;
+    font-size: 12px;
+    padding: 6px;
 }
 
 .radio-selector-container{
@@ -60,16 +60,28 @@
 
 .radio-selector{
     margin: 8px;
+    appearance: none;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #0096c7;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
     
 }
 
+.radio-selector:checked{
+    border: 6px solid #0096c7;
+}
+
 .radio-label{
-    padding: 8px 4px;
+    padding: 8px 12px;
 }
 
 
 
-.signup-button{
+.register-button{
     background-color: #0077b6;
     padding: 10px;
     width: 100%;
@@ -81,7 +93,7 @@
     font-family: poppins;
 }
 
-.signup-button:active{
+.register-button:active{
     background-color: #0096c7;
 }
 

@@ -2,7 +2,7 @@
 
 .nav-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 50px;
@@ -10,17 +10,50 @@
     color: #0077b6;
     box-shadow: 0 5px 10px rgba(255, 255, 255, 0.9);
     z-index: 999;
+    letter-spacing: 0.5px;
 }
 
-.app-name{
+.home-app-name{
     padding: 10px 30px;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 30px;
+    letter-spacing: 1px;
 }
+
+.pages-link-container{
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.home-page-link{
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.jobs-page-link{
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.candidates-page-link{
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.recruiter-page-link{
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
 
 .signup-login-container{
     display: flex;
-    font-weight: 700;
+    font-weight: 500;
     margin-right: 20px;
 }
 
@@ -30,9 +63,44 @@
 }
 
 .login{
-    padding: 10px;
+    min-width: 70px;
+    max-width: 80px;
+    padding: 6px 10px;
+    background-color: white;
+    border-radius: 4px;
+    color: #0077b6;
+    border: 1px solid #0077b6;
+    margin: 0 10px;
 }
 
-.sign-up{
-    padding: 10px;
+.login:hover{
+    background-color: #0077b6;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login:active{
+    background-color: #0168a0;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.register{
+    min-width: 70px;
+    max-width: 80px;
+    padding: 8px 10px;
+    background-color: #0077b6;
+    border-radius: 4px;
+    color: white;
+    margin: 0 10px;
+}
+
+.register:hover{
+    background-color: #2f9cd7;
+    transition: background-color 0.3s ease,transform 0.3s ease;
+}
+
+.register:active{
+    background-color: #0168a0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }

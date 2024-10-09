@@ -1,0 +1,25 @@
+.pop-up-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-message{
+    color: #0077b6;
+}
+
+.alert-heading{
+    background-color: darkslategray;
+    color: white;
+}
+
+.close-button{
+    min-width: 70px;
+    max-width: 80px;
+    padding: 8px 10px;
+    background-color: #0077b6;
+    border-radius: 4px;
+    color: white;
+    margin: 0 10px;
+}

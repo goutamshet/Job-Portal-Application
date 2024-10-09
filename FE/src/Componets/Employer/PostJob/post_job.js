@@ -2,6 +2,49 @@ import './post_job.css'
 import { Link } from 'react-router-dom'
 
 const PostJob = () => {
+
+    const formik = useFormik({
+        initialValues: {
+          email: '',
+          password: '' 
+        },
+        validationSchema: Yup.object({
+          email: Yup.string()
+            .email('Invalid email address')
+            .required('Email is required'),
+          password: Yup.string()
+            .min(6, 'Password must be at least 6 characters')
+            .required('Password is required')
+        }),
+    
+        onSubmit: async (values) => {
+          try {
+            // You can use axios here to send the form values to the backend
+            const response = await axios.post('http://localhost:5001/api/auth/login', values);
+    
+            if(response.status === 200){
+              localStorage.setItem('token',response.data.token);
+              toast.success("logged in")
+              const role = localStorage.getItem('role')
+              if(role === "Job Seeker"){
+                  navigate('/jobseeker')
+              }else if (role === "Job Provider"){
+                  navigate('/jobprovider')
+              }
+          }
+          } catch (error) {
+            if (error.response) {
+              const errorMessage = error.response.data.error; // Get error message from backend
+              toast.error(errorMessage)
+            } else {
+              setErrorMessage('Network error. Please check your connection.');
+              toast.error(errorMessage)
+            }
+    
+          }
+        },
+      });
+    
     return (
         <div className="post-job-form-container">
             <div className="title-button-container">

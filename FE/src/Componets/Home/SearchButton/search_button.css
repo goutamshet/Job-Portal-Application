@@ -8,12 +8,12 @@
 .find-button{
    display: inline-block;
    padding: 12px 20px;
-   font-weight: 600;
+   font-weight: 500;
    border-radius: 4px;
-   font-size: 16px;
+   font-size: 17px;
    background-color: #0077b6;
    color: white;
    border: none;
    font-family: poppins;
-   letter-spacing: 1px;
+   letter-spacing: 0.5px;
 }
