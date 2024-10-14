@@ -4,8 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -47,13 +46,7 @@ const Register = () => {
           }, 1000);
         }
       } catch (error) {
-       if (error.response || error.response.status === 400) {
-        // Show error toast with specific message from the backend
-        toast.error(error.response.data);
-      } else {
-        // General error toast if no specific error message is provided
-        toast.error('Registration failed. Please try again later');
-      }
+       
     }
     },
   });
@@ -131,7 +124,7 @@ const Register = () => {
           <Link className="login-link" to="/login">Log In</Link>
         </div>
       </form>
-      <ToastContainer/>
+      
     </div>
   );
 }

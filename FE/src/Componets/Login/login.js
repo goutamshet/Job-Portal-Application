@@ -5,8 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,14 +43,7 @@ const Login = () => {
           }
       }
       } catch (error) {
-        if (error.response) {
-          const errorMessage = error.response.data.error; // Get error message from backend
-          toast.error(errorMessage)
-        } else {
-          setErrorMessage('Network error. Please check your connection.');
-          toast.error(errorMessage)
-        }
-
+        
       }
     },
   });
@@ -85,7 +77,7 @@ const Login = () => {
                     <Link className="register-link" to="/register">Register</Link>
                 </div>
             </form>
-            <ToastContainer/>
+            
         </div>
     )
 }

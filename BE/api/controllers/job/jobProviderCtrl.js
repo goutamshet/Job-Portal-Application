@@ -11,10 +11,11 @@ const createProfile = async (req, res) => {
       data: {
         userId,
         company_name,
-        job_description,
+        company_description,
         email,
         phone,
         location,
+        website
       },
     });
     res.status(200).json(newCreateProfile);
