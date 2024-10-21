@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
+import { useState } from 'react';
 
 const Register = () => {
   const navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -24,7 +26,7 @@ const Register = () => {
         .min(3, 'Username must be at least 3 characters')
         .required('Username is required'),
       password: Yup.string()
-        .min(6, 'Password must be at least 6 characters')
+        .min(8, 'Password must be at least 8 characters')
         .required('Password is required'),
       roleName: Yup.string().required('Role is required'), // Validation for role
     }),
@@ -32,10 +34,9 @@ const Register = () => {
       try {
         // You can use axios here to send the form values to the backend
         const response = await axios.post('http://localhost:5001/api/auth/register', values);
-        if (response.status === 200) {
+        if (response.status === 201) {
           // Show success toast if registration is successful
-          toast.success('Registration successful!', {
-          });
+         
           // Save token and role to local storage
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('role', response.data.role);
@@ -46,6 +47,12 @@ const Register = () => {
           }, 1000);
         }
       } catch (error) {
+        if (error.response.status === 400) {
+          setErrorMessage("Email already exists");
+        }
+        else{
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
        
     }
     },
@@ -64,8 +71,9 @@ const Register = () => {
             value={formik.values.username}
             onChange={formik.handleChange}            
           />
-          <div className='error'>{formik.errors.username}</div>
-
+          <div className="error">
+            {formik.touched.username && formik.errors.username ? formik.errors.username : null}
+          </div>
           <input
             type="email"
             name="email"
@@ -74,10 +82,9 @@ const Register = () => {
             value={formik.values.email}
             onChange={formik.handleChange}
           />
-          
-          <div className='error'>{formik.errors.email}</div>
-          
-
+          <div className="error">
+            {formik.touched.email && formik.errors.email ? formik.errors.email : null}
+          </div>
           <input
             type="password"
             name="password"
@@ -86,7 +93,9 @@ const Register = () => {
             value={formik.values.password}
             onChange={formik.handleChange}
           />
-            <div className='error'>{formik.errors.password}</div>
+          <div className="error">
+            {formik.touched.password && formik.errors.password ? formik.errors.password : null}
+          </div>
         </div>
 
         <div className="radio-selector-container">
@@ -123,8 +132,8 @@ const Register = () => {
           <span className="text">Already have an account? &nbsp;</span>
           <Link className="login-link" to="/login">Log In</Link>
         </div>
+        {errorMessage && <div className="error">{errorMessage}</div>}
       </form>
-      
     </div>
   );
 }

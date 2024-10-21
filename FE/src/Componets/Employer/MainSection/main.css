@@ -1,7 +1,40 @@
-.main{
+.main {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);  /* 4 columns for large screens */
+    gap: 20px;  /* Slightly increased gap for better spacing */
     padding: 20px;
     margin-top: 60px;
+    transition: all 0.3s ease;  /* Smooth transition for resizing */
+}
+
+/* For screens smaller than 1024px (tablets and medium-sized devices) */
+@media screen and (max-width: 1024px) {
+    .main {
+        grid-template-columns: repeat(3, 1fr);  /* 3 columns for medium screens */
+    }
+}
+
+/* For screens smaller than 768px (small tablets and large mobile devices) */
+@media screen and (max-width: 768px) {
+    .main {
+        grid-template-columns: repeat(2, 1fr);  /* 2 columns for smaller screens */
+        padding: 15px;  /* Adjusted padding for smaller screens */
+    }
+}
+
+/* For screens smaller than 650px */
+@media screen and (max-width: 650px) {
+    .main {
+        grid-template-columns: 1fr;  /* 1 column for very small screens */
+        padding: 10px;  /* Smaller padding for compact view */
+    }
+}
+
+/* Further optimization for very small mobile screens */
+@media screen and (max-width: 480px) {
+    .main {
+        grid-template-columns: 1fr;  /* Single column layout */
+        gap: 10px;  /* Reduced gap for smaller devices */
+        margin-top: 40px;  /* Slightly less margin on top for mobile */
+    }
 }

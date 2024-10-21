@@ -1,79 +1,48 @@
-.job-info-card-container{
+.info-card-container{
     display: flex;
     flex-direction: column;
-    align-items: start;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 6px;
     border: 0.25px solid rgb(221, 219, 219);
     box-shadow: 2px 2px  6px 6px rgba(140, 138, 138, 0.1);
     min-width: 200px ;
 } 
 
-.date-edit-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-}
 
-.post-date{
-    font-size: 14px;
-    padding: 0 8px;
-    flex: 1;
+.job-post-date{
+    font-size: 12px;
     text-align: start;
-}
-
-.edit-icon-container{
-}
-
-.remove-icon-container{
-
-}
-
-.edit-icon,.remove-icon{
-    width: 18px;
     padding: 8px;
 }
 
-.company-details-container{
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-
-
-.company-name,
-.job-title,
-.job-desc,
-.job-salary,
-.job-type,
-.job-location,
-.contact-no{
-    flex: 1;
-    padding: 6px 10px;
-    text-align: start;
-}
-
-.job-desc,
-.job-salary,
-.job-type,
-.job-location,
-.contact-no{
+.heading{
     font-size: 14px;
+    font-weight: 600;
+    text-align: start;
+    padding: 4px 8px;
 }
 
-.icon{
-    width: 20px;
+.data{
+    font-size: 14px;
+    text-align: start;
+    padding: 4px 8px;
+}
+
+.buttons-container{
     display: flex;
-    justify-content: center;
-    padding: 4px 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 6px;
 }
 
-.job-title,
-.company-name{
-    font-size: 16px;
-    font-weight: 500;
+.button{
+   flex: 1;
+   font-size: 14px;
+   font-weight: 500;
+   color: blue;
+   border: 1px solid blue;
+   border-radius: 4px;
+   padding: 6px;
 }
+
 
