@@ -8,12 +8,13 @@ import salary from "../../../../Assets/payroll.png";
 import jobtype from "../../../../Assets/job-type.png";
 import location from "../../../../Assets/location.png";
 import phone from "../../../../Assets/phone.png";
-import {useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import DateFormatter from "./DateFormatter";
 
-const JobInfoCard = ({ item }) => {
+const JobInfoCard = ({ item , onDelete }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,14 +24,16 @@ const JobInfoCard = ({ item }) => {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const profileData = await axios.get("http://localhost:5001/api/jobProvider", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include token in the request
-          },
-        });
-        
+        const profileData = await axios.get(
+          "http://localhost:5001/api/jobProvider",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include token in the request
+            },
+          }
+        );
+
         setData(profileData.data[0]); // Assume response.data is an array of profiles
-        console.log(profileData.data)
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -45,7 +48,11 @@ const JobInfoCard = ({ item }) => {
   if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="info-card-container">
-      <DateFormatter className={"job-post-date"} dateString={item.created_at} title={"Posted On"} />
+      <DateFormatter
+        className={"job-post-date"}
+        dateString={item.created_at}
+        title={"Posted On"}
+      />
       <div className="card-details-container">
         <table>
           <tr>
@@ -74,8 +81,10 @@ const JobInfoCard = ({ item }) => {
           </tr>
         </table>
         <div className="buttons-container">
-          <div className="button">Edit</div>
-          <div className="button">Delete</div>
+          <Link className="edit-link button" to={`/edit-job/${item.id}`}>
+            Edit
+          </Link>
+          <div className="button" onClick={() => onDelete(item.id)}>Delete</div>
         </div>
       </div>
     </div>

@@ -11,6 +11,7 @@ import Register from "./Componets/Register/register";
 import ProtectedRoute from "./Componets/ProtectedRoute/protected-route";
 import EmployerProfile from "./Componets/Employer/EmployerProfile/employer-profile";
 import { AuthProvider } from "./AuthContext/auth-context";
+import SeekerProfile from "./Componets/Seeker/SeekerProfile/seeker-profile";
 
 function App() {
   return (
@@ -38,6 +39,14 @@ function App() {
               }
             />
             <Route
+              path="/edit-job/:jobId"
+              element={
+                <ProtectedRoute>
+                  <PostJob />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/jobseeker"
               element={
                 <ProtectedRoute>
@@ -53,6 +62,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/jobseeker-profile"
+              element={
+                <ProtectedRoute>
+                  <SeekerProfile/>
+                </ProtectedRoute>
+              }
+            />
+            
           </Routes>
         </div>
       </Router>

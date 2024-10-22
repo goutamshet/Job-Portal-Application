@@ -1,17 +1,13 @@
 import { createContext, useState, useEffect } from 'react';
 
-// Create the AuthContext
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken] = useState(null);
 
-    // Automatically check for token in localStorage on mount
     useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (storedToken) {
-            setToken(storedToken);
+        const token = localStorage.getItem('token');
+        if (token) {
             setIsAuthenticated(true);
         } else {
             setIsAuthenticated(false);
@@ -19,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, token }}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
             {children}
         </AuthContext.Provider>
     );

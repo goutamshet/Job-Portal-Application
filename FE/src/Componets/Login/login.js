@@ -34,6 +34,7 @@ const Login = () => {
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.accesstoken);
+          console.log(localStorage.getItem('token'))
           localStorage.setItem("role", response.data.user.role);
           localStorage.setItem("userId", response.data.user.id);
           const role = localStorage.getItem("role");

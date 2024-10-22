@@ -13,12 +13,33 @@
     position: fixed;
     top: 0;
     left: 0;
+    padding: 10px 20px;
+    box-sizing: border-box;
 }
 
 .app-name{
-    padding: 10px 30px;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 24px;
+}
+
+.employer-nav-options-container{
+    display: flex;
+    flex: 1;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+.emp-job-category{
+    border: none;
+    outline: none;
+    color: #0077b6;
+    font-family: poppins;
+    font-size: 16px;
+    padding: 0px;
+    background-color: white;
+    border: none;
+    border-radius: 0px;
 }
 
 
@@ -28,6 +49,7 @@
     font-weight: 500;
     justify-content: center;
     align-items: center;
+   
 }
 
 .link{
@@ -35,28 +57,69 @@
     color: inherit;
 }
 
+.job-posts,
+.candidates{
+    
+}
 
 .account-type{
-    padding: 6px 12px;
+    
 }
 
 .button-post-job{
-    padding: 6px 12px;
-    margin: 0px 20px;
     font-family: poppins;
     font-size: 16px;
     border: 1px solid #0077b6;
     border-radius: 4px;
     color: white;
-    font-weight: 700;
     background-color: #0077b6;
+    max-width: 200px;
 }
 
-.profile-container{
+.account-container{
     display: flex;
     align-items: center;
 }
 
-.profile{
+.account-container:hover{
+    
+}
+
+.account{
     width: 30px;
 }
+/* 
+@media (max-width : 480px) {
+    .nav-container{
+        flex-direction: column;
+    } 
+
+    .app-name{
+        font-size: 20px;
+        width: 100%;
+        text-align: start;
+    }
+
+    .nav-items-container {
+        flex-direction: row; 
+        width: 100%; 
+        position: absolute;
+        top: 60px;
+        background-color: white;
+        display: flex;
+        font-size: 14px;
+    }
+
+    .account {
+        width: 30px;
+        height: 30px;
+    }
+
+    .link{
+        margin: 8px 0; 
+    }
+
+    .button-post-job{
+       
+    }
+} */

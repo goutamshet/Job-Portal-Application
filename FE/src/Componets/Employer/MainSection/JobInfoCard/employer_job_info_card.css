@@ -15,17 +15,25 @@
     padding: 8px;
 }
 
+
+.card-details-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .heading{
     font-size: 14px;
     font-weight: 600;
     text-align: start;
-    padding: 4px 8px;
+    padding: 2px 8px;
+    vertical-align: top;
 }
-
 .data{
     font-size: 14px;
     text-align: start;
-    padding: 4px 8px;
+    
 }
 
 .buttons-container{
@@ -45,4 +53,18 @@
    padding: 6px;
 }
 
+.button:hover{
+    background-color: #0077b6;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
 
+.button:active{
+    background-color: #0168a0;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-link{
+    text-decoration: none;
+}

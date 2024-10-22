@@ -1,7 +1,7 @@
 import './employer_nav_bar.css'
 import {Link} from 'react-router-dom'
 import account from '../../../Assets/account.png'
-import SubMenu from './SubMenu/sub_menu'
+import SubMenu from '../../SubMenu/sub_menu'
 import { useState } from 'react'
 
 

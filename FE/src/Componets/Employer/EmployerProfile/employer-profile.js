@@ -9,22 +9,23 @@ const EmployerProfile = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const [profileExists, setProfileExists] = useState(false); // Track if the profile exists
-
+  const [profileId, setProfileId] = useState(null);
   // Fetch the profile when the component mounts
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`http://localhost:5001/api/jobProvider/?userId=${userId}`, {
+        const userId = Number(localStorage.getItem('userId'));
+
+        const response = await axios.get(`http://localhost:5001/api/jobProvider/`, {
           headers: {
             Authorization: `Bearer ${token}`, 
           },
         });
 
         if (response.data && response.data.length > 0) {
-          const profileData = response.data[0]; // Get the first object from the array
-
+          const profileData = response.data.find(profile => profile.userId === userId);
+          setProfileId(profileData.id)
           setProfileExists(true); // Set that profile exists
 
           const formattedProfileData = {
@@ -39,7 +40,7 @@ const EmployerProfile = () => {
          
         }
       } catch (error) {
-        console.error('Failed to fetch profile', error);
+        console.error('Failed to fetch profile', error.response);
         setProfileExists(false); // No profile found
       }
     };
@@ -67,7 +68,7 @@ const EmployerProfile = () => {
       try {
         if (profileExists) {
           // Update existing profile
-          const response = await axios.put(`http://localhost:5001/api/jobProvider/${userId}`, values, {
+          const response = await axios.put(`http://localhost:5001/api/jobProvider/${profileId}`, values, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -101,7 +102,7 @@ const EmployerProfile = () => {
   return (
     <div className="profile-container">
       <form className="card" onSubmit={formik.handleSubmit}>
-        <h1 className="profile-title">Employer Profile</h1>
+        <h1 className="profile-title">Profile</h1>
         <div className="profile-input-container">
           <input
             type="text"

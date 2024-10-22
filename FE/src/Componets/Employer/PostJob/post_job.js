@@ -1,18 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import {  Link, useNavigate } from 'react-router-dom';
+import {  Link, useNavigate,useParams } from 'react-router-dom';
 import './post_job.css';
 
 
 const PostJob = () => {
   const navigate = useNavigate();
+  const { jobId } = useParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const token = localStorage.getItem('token')
   const userId = Number(localStorage.getItem('userId'))
+
+
+  useEffect(() => {
+    if (jobId) {
+      // If editing an existing job, fetch job details
+      fetchJobDetails();
+    }
+  }, [jobId]);
+
+  const fetchJobDetails = async () => {
+    try {
+      setLoading(true);
+      
+      const jobResponse = await axios.get(`http://localhost:5001/api/jobListings/${jobId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const jobData = jobResponse.data;
+      // Update form values with fetched job details
+      formik.setValues({
+        title: jobData.title || '',
+        description: jobData.description || '',
+        requirements: jobData.requirements || '',
+        preferredSkills: jobData.preferredSkills || '',
+        salary_range: jobData.salary_range || '',
+        location: jobData.location || '',
+        expires_at: jobData.expires_at || '',
+        category_name: jobData.category ? jobData.category.name : '', // If category exists
+      });
+    } catch (error) {
+      setError('Error loading job details.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -49,20 +88,28 @@ const PostJob = () => {
               console.log("Category exists:", existingCategory.id);
               categoryId = existingCategory.id;
           } else {
+            console.log(values.category_name)
+            console.log(token)
               console.log("Category does not exist, creating a new one");
-              const categoryResponse = await axios.post('http://localhost:5001/api/jobCategory/create', {
-                  params : {category_name: values.category_name},
-              }, {
+             
+              const categoryResponse = await axios.post('http://localhost:5001/api/jobCategory/create', 
+                {
+                  name: values.category_name
+                }, 
+                {
                   headers: {
-                      Authorization: `Bearer ${token}`,
-                  },
-              });
+                    Authorization: `Bearer ${token}`,
+                  }
+                }
+              );
+              
               categoryId = categoryResponse.data.id;
               console.log("New category created with ID:", categoryId);
+              console.log("New category created with ID:", values.category_name);
           }
   
           // Create the job listing with the found/created categoryId
-          const jobResponse = await axios.post('http://localhost:5001/api/jobListings/create', {
+          const jobResponse = await axios.post(jobId ? `http://localhost:5001/api/jobListings/${jobId}` : 'http://localhost:5001/api/jobListings', {
               providerId: userId,
               title: values.title,
               description: values.description,
@@ -105,7 +152,7 @@ const PostJob = () => {
                 Cancel
               </button>
             </Link>
-            <button type="submit" className="post-button" disabled={loading}>
+            <button type="submit" className="button-post-job" disabled={loading}>
               {loading ? "Posting..." : "Post"}
             </button>
           </div>
