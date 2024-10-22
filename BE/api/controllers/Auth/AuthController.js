@@ -66,12 +66,12 @@ const Login = async (req, res) => {
   });
 
   if (!user) {
-    return res.status(400).json({ error: "User not found" });
+    return res.status(404).json({ error: "User not found" });
   }
 
   const isMatch = await bcrypt.compare(password, user.password_hash);
   if (!isMatch) {
-    return res.status(400).json({ error: "Invalid credentials" });
+    return res.status(401).json({ error: "Invalid credentials" });
   }
 
   try {

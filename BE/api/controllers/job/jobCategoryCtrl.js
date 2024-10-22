@@ -3,11 +3,11 @@ const prisma=require('../../prismaClient')
 
 //create
 const createJobCategory=async(req,res)=>{
-    const {name,description}=req.body;
+    const {name}=req.body;
 
     try {
         const jobcategory=await prisma.jobCategory.create({
-            data:{name,description}
+            data:{name}
         })
         res.status(200).json(jobcategory)
     } catch (error) {
@@ -26,6 +26,29 @@ const getCategories=async(req,res)=>{
         res.status(400).json({error:error.message}) 
     }
 } 
+
+const getSingleCategory = async (req, res) => {
+    const { name } = req.query; // Extract category_name from query parameters
+  
+    try {
+      const category = await prisma.jobCategory.findUnique({
+        where: {
+            name: name, // Assuming 'name' is the field in your database
+        },
+      });
+  
+      if (category) {
+        // Category exists, return the details
+        return res.status(200).json({ exists: true, category });
+      } else {
+        // Category does not exist
+        return res.status(404).json({ exists: false, message: "Category does not exist" });
+      }
+    } catch (error) {
+      console.error("Error fetching category:", error);
+      res.status(500).json({ error: error.message });
+    }
+  };
 
 //update
 const updateJobCategory=async(req,res)=>{
@@ -60,4 +83,4 @@ const deleteCategory=async(req,res)=>{
 
 
 
-module.exports={createJobCategory,updateJobCategory,deleteCategory,getCategories}
+module.exports={createJobCategory,updateJobCategory,deleteCategory,getCategories,getSingleCategory}

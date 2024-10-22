@@ -71,7 +71,7 @@ const updateProfile = async (req, res) => {
     skills,
     experience,
     education,
-    location,
+    location
   } = req.body;
   try {
     const updatedprofile = await prisma.jobSeekerProfile.update({

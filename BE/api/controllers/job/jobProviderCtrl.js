@@ -37,10 +37,10 @@ const getProfiles = async (req, res) => {
 
 //get one
 const getProfile = async (req, res) => {
-  const { id } = req.params;
+  const { userId } = req.params;
   try {
     const profile = await prisma.jobProviderProfile.findUnique({
-      where: { id: Number(id) },
+      where: { userId: Number(userId) },
     });
     if (!profile) return res.status(404).json({ error: "profile not found" });
     res.status(201).send(profile);

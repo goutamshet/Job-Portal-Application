@@ -5,7 +5,6 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "password_hash" TEXT NOT NULL,
     "roleId" INTEGER NOT NULL,
-    "profile_picture_url" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

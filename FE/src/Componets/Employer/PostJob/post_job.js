@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import {  Link, useNavigate,useParams } from 'react-router-dom';
-import './post_job.css';
-
+import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "./post_job.css";
 
 const PostJob = () => {
   const navigate = useNavigate();
@@ -12,9 +11,8 @@ const PostJob = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('token')
-  const userId = Number(localStorage.getItem('userId'))
-
+  const token = localStorage.getItem("token");
+  const userId = Number(localStorage.getItem("userId"));
 
   useEffect(() => {
     if (jobId) {
@@ -26,27 +24,30 @@ const PostJob = () => {
   const fetchJobDetails = async () => {
     try {
       setLoading(true);
-      
-      const jobResponse = await axios.get(`http://localhost:5001/api/jobListings/${jobId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+
+      const jobResponse = await axios.get(
+        `http://localhost:5001/api/jobListings/${jobId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const jobData = jobResponse.data;
       // Update form values with fetched job details
       formik.setValues({
-        title: jobData.title || '',
-        description: jobData.description || '',
-        requirements: jobData.requirements || '',
-        preferredSkills: jobData.preferredSkills || '',
-        salary_range: jobData.salary_range || '',
-        location: jobData.location || '',
-        expires_at: jobData.expires_at || '',
-        category_name: jobData.category ? jobData.category.name : '', // If category exists
+        title: jobData.title || "",
+        description: jobData.description || "",
+        requirements: jobData.requirements || "",
+        preferredSkills: jobData.preferredSkills || "",
+        salary_range: jobData.salary_range || "",
+        location: jobData.location || "",
+        expires_at: jobData.expires_at || "",
+        category_name: jobData.category ? jobData.category.name : "", // If category exists
       });
     } catch (error) {
-      setError('Error loading job details.');
+      setError("Error loading job details.");
     } finally {
       setLoading(false);
     }
@@ -54,91 +55,103 @@ const PostJob = () => {
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      description: '',
-      requirements: '',
-      preferredSkills: '',
-      salary_range: '',
-      location: '',
-      expires_at: '',
-      category_name: '',  // Input for category name
+      title: "",
+      description: "",
+      requirements: "",
+      preferredSkills: "",
+      salary_range: "",
+      location: "",
+      expires_at: "",
+      category_name: "", // Input for category name
     },
     validationSchema: Yup.object({
-      title: Yup.string().required('Job title is required'),
-      description: Yup.string().required('Job description is required'),
-      category_name: Yup.string().required('Category is required'),
+      title: Yup.string().required("Job title is required"),
+      description: Yup.string().required("Job description is required"),
+      category_name: Yup.string().required("Category is required"),
     }),
     onSubmit: async (values) => {
       try {
-          setLoading(true);
-          setError(null);
-  
-          // Check if the category exists
-          let categoryId;
-          const checkCategory = await axios.get(`http://localhost:5001/api/jobCategory/?category_name=${values.category_name}`, {
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              },
-          });
-  
-          console.log(checkCategory.data); // Log the response to see the structure
-          const existingCategory = checkCategory.data.find(category => category.name === values.category_name);
-  
-          if (existingCategory) {
-              console.log("Category exists:", existingCategory.id);
-              categoryId = existingCategory.id;
-          } else {
-            console.log(values.category_name)
-            console.log(token)
-              console.log("Category does not exist, creating a new one");
-             
-              const categoryResponse = await axios.post('http://localhost:5001/api/jobCategory/create', 
-                {
-                  name: values.category_name
-                }, 
-                {
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                  }
-                }
-              );
-              
-              categoryId = categoryResponse.data.id;
-              console.log("New category created with ID:", categoryId);
-              console.log("New category created with ID:", values.category_name);
+        setLoading(true);
+        setError(null);
+
+        // Check if the category exists
+        let categoryId;
+        const checkCategory = await axios.get(
+          `http://localhost:5001/api/jobCategory/?category_name=${values.category_name}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-  
-          // Create the job listing with the found/created categoryId
-          const jobResponse = await axios.post(jobId ? `http://localhost:5001/api/jobListings/${jobId}` : 'http://localhost:5001/api/jobListings', {
-              providerId: userId,
-              title: values.title,
-              description: values.description,
-              requirements: values.requirements,
-              preferredSkills: values.preferredSkills,
-              salary_range: values.salary_range,
-              location: values.location,
-              expires_at: values.expires_at,
-              categoryId: categoryId,
-          }, {
+        );
+
+        console.log(checkCategory.data); // Log the response to see the structure
+        const existingCategory = checkCategory.data.find(
+          (category) => category.name === values.category_name
+        );
+
+        if (existingCategory) {
+          console.log("Category exists:", existingCategory.id);
+          categoryId = existingCategory.id;
+        } else {
+          console.log(values.category_name);
+          console.log(token);
+          console.log("Category does not exist, creating a new one");
+
+          const categoryResponse = await axios.post(
+            "http://localhost:5001/api/jobCategory/create",
+            {
+              name: values.category_name,
+            },
+            {
               headers: {
-                  Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
               },
-          });
-  
-          console.log(jobResponse);
-  
-          if (jobResponse.status === 201) {
-              console.log('Job created successfully');
-              navigate('/jobProvider');
+            }
+          );
+
+          categoryId = categoryResponse.data.id;
+          console.log("New category created with ID:", categoryId);
+          console.log("New category created with ID:", values.category_name);
+        }
+
+        
+        // Create the job listing with the found/created categoryId
+        const jobResponse = await axios.post(
+          jobId
+            ? `http://localhost:5001/api/jobListings/${jobId}`
+            : 'http://localhost:5001/api/jobListings/create',
+          {
+            providerId: userId,
+            title: values.title,
+            description: values.description,
+            requirements: values.requirements,
+            preferredSkills: values.preferredSkills,
+            salary_range: values.salary_range,
+            location: values.location,
+            expires_at: values.expires_at,
+            categoryId: categoryId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
+        );
+
+        console.log(jobResponse);
+
+        if (jobResponse.status === 201) {
+          console.log("Job created successfully");
+          navigate("/jobProvider");
+        }
       } catch (error) {
-          console.error('Error creating job or category:', error.response.data);
-          setError('Error creating job or category. Please try again.');
+        console.error("Error creating job or category:", error.response.data);
+        setError("Error creating job or category. Please try again.");
       } finally {
-          setLoading(false);
+        setLoading(false);
       }
-  }
-  
+    },
   });
 
   return (
@@ -152,7 +165,11 @@ const PostJob = () => {
                 Cancel
               </button>
             </Link>
-            <button type="submit" className="button-post-job" disabled={loading}>
+            <button
+              type="submit"
+              className="button-post-job"
+              disabled={loading}
+            >
               {loading ? "Posting..." : "Post"}
             </button>
           </div>
@@ -165,7 +182,9 @@ const PostJob = () => {
 
           {/* Job Title */}
           <div className="row">
-            <label className="label" htmlFor="title">Job Title</label>
+            <label className="label" htmlFor="title">
+              Job Title
+            </label>
             <span> : </span>
             <input
               id="title"
@@ -182,7 +201,9 @@ const PostJob = () => {
 
           {/* Job Description */}
           <div className="row">
-            <label className="label" htmlFor="description">Job Description</label>
+            <label className="label" htmlFor="description">
+              Job Description
+            </label>
             <span> : </span>
             <textarea
               id="description"
@@ -214,7 +235,9 @@ const PostJob = () => {
 
           {/* Requirements */}
           <div className="row">
-            <label className="label" htmlFor="requirements">Requirements</label>
+            <label className="label" htmlFor="requirements">
+              Requirements
+            </label>
             <span> : </span>
             <input
               id="requirements"
@@ -231,7 +254,9 @@ const PostJob = () => {
 
           {/* Skills */}
           <div className="row">
-            <label className="label" htmlFor="preferredSkills">Skills</label>
+            <label className="label" htmlFor="preferredSkills">
+              Skills
+            </label>
             <span> : </span>
             <input
               id="preferredSkills"
@@ -248,7 +273,9 @@ const PostJob = () => {
 
           {/* Salary */}
           <div className="row">
-            <label className="label" htmlFor="salary_range">Salary</label>
+            <label className="label" htmlFor="salary_range">
+              Salary
+            </label>
             <span> : </span>
             <input
               id="salary_range"
@@ -265,7 +292,9 @@ const PostJob = () => {
 
           {/* Location */}
           <div className="row">
-            <label className="label" htmlFor="location">Location</label>
+            <label className="label" htmlFor="location">
+              Location
+            </label>
             <span> : </span>
             <input
               id="location"
@@ -282,7 +311,9 @@ const PostJob = () => {
 
           {/* Last Date */}
           <div className="row">
-            <label className="label" htmlFor="expires_at">Last Date</label>
+            <label className="label" htmlFor="expires_at">
+              Last Date
+            </label>
             <span> : </span>
             <input
               id="expires_at"
